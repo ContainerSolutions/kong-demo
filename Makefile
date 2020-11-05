@@ -25,12 +25,12 @@ k3d-down:
 
 .PHONY: kong-install
 kong-install: kong/kong-install-manifest-$(KONG_INGRESS_VERSION).yaml
-	kubectl apply -k kong/
+	kustomize build kong/overlays/ | kubectl apply -f -
 
 .PHONY: kong-uninstall
 kong-uninstall: kong/kong-install-manifest-$(KONG_INGRESS_VERSION).yaml
-	kubectl delete -n kong -f ci/kong-install-manifest-$(KONG_INGRESS_VERSION).yaml
+	kustomize build kong/overlays/ | kubectl apply -f -
 
 .PHONY: kong-install-manifest
 kong/kong-install-manifest-$(KONG_INGRESS_VERSION).yaml:
-	wget $(KONG_INGRESS_DOWNLOAD_LINK) -O kong/kong-install-manifest-$(KONG_INGRESS_VERSION).yaml 
+	wget $(KONG_INGRESS_DOWNLOAD_LINK) -O kong/base/kong-install-manifest.yaml

@@ -15,7 +15,7 @@ PROC_ID=$!
 sleep 3
 
 # Curl the service
-curl http://localhost:8081/headers
+curl -Ss http://localhost:8081/headers | jq
 
 # Stop the port forward using its pid
 kill -9 ${PROC_ID}

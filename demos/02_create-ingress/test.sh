@@ -20,7 +20,7 @@ PROC_ID=$!
 sleep 1
 
 # Curl the service
-curl http://localhost:8081/noauth/headers -H 'Host: kong.example.io'
+curl -Ss http://localhost:8081/noauth/headers -H 'Host: kong.example.io' | jq
 
 # Stop the port forward using its pid
 kill -9 ${PROC_ID}
