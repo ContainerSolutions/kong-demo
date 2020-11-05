@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -uex
+set -e
 
 # Check our things are there
 if ! kubectl get kongplugin/echo-key-auth > /dev/null 2>&1
