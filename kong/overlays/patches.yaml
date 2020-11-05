@@ -1,0 +1,3 @@
+- op: add
+  path: /spec/template/spec/containers/0/ports/3
+  value: {"containerPort": 8444, "name": "admin", "protocol": "TCP"}

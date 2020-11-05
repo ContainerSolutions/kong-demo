@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: echo
+  annotations:
+    kubernetes.io/ingress.class: "kong"  # explicitly request the kong-ingress type
+    konghq.com/override: echo  # for kong-ingress to find this ingress
+spec:
+  rules:
+    - host: kong.example.io
+      http:
+        paths:
+          - path: /noauth
+            backend:
+              serviceName: echo
+              servicePort: 80
+
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongIngress
+metadata:
+  name: echo
+  annotations:
+    kubernetes.io/ingress.class: "kong"
+proxy:
+  path: /
+# Adding addtional configs to a route
+route:
+  protocols:
+    - http
+  methods:
+    - GET
+    - POST
+    - PUT
+    - DELETE
+  strip_path: true
+  preserve_host: true

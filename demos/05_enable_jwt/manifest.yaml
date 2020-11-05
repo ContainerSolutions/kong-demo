@@ -1,0 +1,56 @@
+---
+# JWT Plugin configuration
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: echo-jwt
+  annotations:
+    kubernetes.io/ingress.class: "kong"
+config:
+  secret_is_base64: false
+plugin: jwt
+---
+# Added the JWT plugin to the ingress resource
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: echo-with-acl
+  annotations:
+    kubernetes.io/ingress.class: kong  # explicitly request the kong-ingress type
+    konghq.com/override: echo  # for kong-ingress to find this ingress
+    konghq.com/plugins: echo-jwt #Annotate plugin
+spec:
+  rules:
+    - host: kong.example.io
+      http:
+        paths:
+          - path: /withjwt
+            backend:
+              serviceName: echo
+              servicePort: 80
+---
+# New key for the consumer "non-echo-consumer"
+apiVersion: v1
+kind: Secret
+metadata:
+  name: container-solutions-jwt-settings
+  annotations:
+    kubernetes.io/ingress.class: "kong"
+data:
+  # Base64 encoded key
+  key: aWRlbnRpZmllcjEyMzQ1Ng==
+  secret: cGFzc3dvcmQxMjM0
+  # Base64 encoded credentials type "jwt"
+  kongCredType: and0
+type: Opaque
+---
+# creating the non-echo-consumer 
+apiVersion: configuration.konghq.com/v1
+kind: KongConsumer
+metadata:
+  name: container-solutions
+  annotations:
+    kubernetes.io/ingress.class: "kong"
+username: container-solutions
+credentials:
+- container-solutions-jwt-settings

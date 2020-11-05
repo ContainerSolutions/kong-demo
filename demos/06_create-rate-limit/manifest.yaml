@@ -1,0 +1,34 @@
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: container-solutions-rate-limit
+  annotations:
+    kubernetes.io/ingress.class: "kong"
+plugin: rate-limiting
+config:
+  # Only allows one request every minute
+  minute: 1
+  policy: local
+---
+apiVersion: v1
+kind: Secret
+data:
+  key: cmF0ZS1saW1pdGVkLXVzZXI=
+  kongCredType: a2V5LWF1dGg=
+metadata:
+  name: echo-rate-limited-consumer
+  annotations:
+    kubernetes.io/ingress.class: "kong"
+type: Opaque
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongConsumer
+metadata:
+  name: echo-rate-limited-consumer
+  annotations:
+    kubernetes.io/ingress.class: "kong"
+    konghq.com/plugins: container-solutions-rate-limit
+username: echo-rate-limited-consumer
+credentials:
+- echo-rate-limited-consumer

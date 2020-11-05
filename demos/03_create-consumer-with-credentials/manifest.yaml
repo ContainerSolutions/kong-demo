@@ -1,0 +1,26 @@
+---
+# Secret for consumer key
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cs-apikey
+  annotations:
+    kubernetes.io/ingress.class: "kong"
+data:
+  # base64v encoded key "my-sooper-secret-key"
+  #key: bXktc29vcGVyLXNlY3JldC1rZXk=
+  key: c3VwZXItc2VjdXJlLWtleQ==
+  # base 64 encoded credentials type "key-auth"
+  kongCredType: a2V5LWF1dGg=
+type: Opaque
+---
+# associating kong-api-key with a kong-consumer 
+apiVersion: configuration.konghq.com/v1
+kind: KongConsumer
+metadata:
+  name: container-solutions
+  annotations:
+    kubernetes.io/ingress.class: "kong"
+username: container-solutions
+credentials:
+- cs-apikey

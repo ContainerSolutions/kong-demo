@@ -1,0 +1,27 @@
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: echo-key-auth
+config:
+  key_names:
+    - Authorization
+plugin: key-auth
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: echo-with-auth
+  annotations:
+    kubernetes.io/ingress.class: kong  # explicitly request the kong-ingress type
+    konghq.com/override: echo # for kong-ingress to find this ingress
+    konghq.com/plugins: echo-key-auth #Annotate plugin
+spec:
+  rules:
+    - host: kong.example.io
+      http:
+        paths:
+          - path: /withauth
+            backend:
+              serviceName: echo
+              servicePort: 80
