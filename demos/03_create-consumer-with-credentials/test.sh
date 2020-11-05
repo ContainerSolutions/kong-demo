@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -uex
+set -e
 
 if [ "$(kubectl get deployment.apps/echo -o=jsonpath='{.status.availableReplicas},{.status.readyReplicas},{.status.replicas},{.status.updatedReplicas}')" != "1,1,1,1" ]
 then
