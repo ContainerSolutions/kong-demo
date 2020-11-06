@@ -1,4 +1,4 @@
-# ___   _  _______  __    _  _______    ______   _______  __   __  _______ 
+# ___   _  _______  __    _  _______    ______   _______  __   __  _______
 #|   | | ||       ||  |  | ||       |  |      | |       ||  |_|  ||       |
 #|   |_| ||   _   ||   |_| ||    ___|  |  _    ||    ___||       ||   _   |
 #|      _||  | |  ||       ||   | __   | | |   ||   |___ |       ||  | |  |
@@ -29,7 +29,7 @@ kong-install: kong/kong-install-manifest-$(KONG_INGRESS_VERSION).yaml
 
 .PHONY: kong-uninstall
 kong-uninstall: kong/kong-install-manifest-$(KONG_INGRESS_VERSION).yaml
-	kustomize build kong/overlays/ | kubectl apply -f -
+	kustomize build kong/overlays/ | kubectl delete -f -
 
 .PHONY: kong-install-manifest
 kong/kong-install-manifest-$(KONG_INGRESS_VERSION).yaml:
