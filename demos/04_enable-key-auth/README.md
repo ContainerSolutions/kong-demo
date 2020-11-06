@@ -1,6 +1,6 @@
 # Enabling Key Auth on your Applications
 
-This step enables the [key authentication plugin](https://docs.konghq.com/hub/kong-inc/key-auth/) on your application. With Authentication in Kong you can have a couple of options. You can allow all authenticated and unauthenticated through or you can block unauthenticated requests. Kong will add headers to the requests that pass through in order to identify users. This authentication mechanism is optimize so that it does not take as much time to authenticate as it would in your application.
+This step enables the [key authentication plugin](https://docs.konghq.com/hub/kong-inc/key-auth/) on your application. With Authentication in Kong you can have a couple of options. You can allow all authenticated and unauthenticated requests through, or you can block unauthenticated requests. Kong will add headers to the requests that pass through in order to identify users. This authentication mechanism is optimized so that it does not take as much time to authenticate as it would in your application.
 
 ## Install
 
@@ -58,10 +58,10 @@ Handling connection for 8081
 
 ## What am I seeing?
 
-In the above example 4 requests are made. On an unauthenticated endpoint returns not very much information. The second is the error message when no credentials are provided, the third is the error message that occurs when you make unauthorized requests to kong without allowing anonymous users, these would both result in a status of 401. The Final request is the authenticated request. You will notice three headers have been added.
+In the above example four requests are made. The first unauthenticated endpoint does not return very much information. The second returns an error message as no credentials are provided. The third is the error message that occurs when you make unauthorized requests to Kong without allowing anonymous users. These both result in an HTTP response code of 401. The final request is the authenticated request. You will notice three headers have been added:
 
-- `X-Consumer-Id`: Kongs ID for this consumer
+- `X-Consumer-Id`: Kong's ID for this consumer
 - `X-Consumer-Username`: The username of the consumer (can be configured)
 - `X-Credential-Identifier`: A custom identifier of this user (can be configured)
 
-This way your upstream service can now have authorization mechanisms based off of this information. Note the information is based on the authentication mechanism you use
+This way your upstream service can now have authorization mechanisms based off this information. Note that the information in these headers are based on the authentication mechanism you use.
