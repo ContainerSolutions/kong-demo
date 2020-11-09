@@ -30,7 +30,7 @@ Starting a K3D cluster:
 make k3d-up
 ```
 
-Installing kong:
+Installing Kong:
 
 ```bash
 make kong-install
@@ -51,13 +51,13 @@ ingress-kong-59647d65b9-zh8xd   2/2     Running     0          26m
 
 - [Deploy Echo Service](/demos/01_deploy-echo)
 - [Deploy Ingress Routing](/demos/02_create-ingress)
-- [Deploy Create Consumer and Credentials](/demos/03_create-consumer-with-credentials)
+- [Create Consumer and Credentials](/demos/03_create-consumer-with-credentials)
 - [Enable Key Authentication On Your Service](/demos/04_enable-key-auth)
 - [Enable JWT Authentication On Your Service](/demos/05_enable-jwt)
 - [Enable Rate Limiting Authentication On Your Service](/demos/06_create-rate-limit)
 
 
-# Clean Up
+## Clean Up
 
 to remove everything just run
 
@@ -66,7 +66,7 @@ make k3d-down
 ```
 This will destroy the cluster and the install with it.
 
-# Resources #
+## Resources
 
 - [Kong Ingress](https://github.com/Kong/kubernetes-ingress-controller/tree/main/docs)
 - [KongHQ Docs](https://docs.konghq.com/?itm_source=website&itm_medium=nav)
