@@ -8,6 +8,10 @@ This step will deploy routing to your application using Kubernetes native config
 make install
 ```
 
+## Dependencies
+
+- [Deploy Echo Service](../01_deploy-echo)
+
 ## Test this step
 
 ```bash

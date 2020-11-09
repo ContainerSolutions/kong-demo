@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -uex
+set -e
 
 # Check our things are there
 if ! kubectl get ingress/echo > /dev/null 2>&1
@@ -20,7 +20,9 @@ PROC_ID=$!
 sleep 1
 
 # Curl the service
-curl -Ss http://localhost:8081/noauth/headers -H 'Host: kong.example.io' | jq
+curl -Ssv http://localhost:8081/noauth/headers \
+     -H 'Kong-Debug: 1' \
+     -H 'Host: kong.example.io' | jq
 
 # Stop the port forward using its pid
 kill -9 ${PROC_ID}

@@ -13,7 +13,7 @@ In each directory in `demos/` you will find a `manifest.yaml`, in the correspond
 This repo assumes you have the following tools installed:
 
 - [Make](https://man7.org/linux/man-pages/man1/make.1.html)
-- [K3D](https://k3d.io/)
+- [K3D](https://k3d.io/) version 3.0.0 tested
 - [Kustomize](https://kustomize.io/)
 - [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 - [jq](https://stedolan.github.io/jq/)
@@ -56,7 +56,17 @@ ingress-kong-59647d65b9-zh8xd   2/2     Running     0          26m
 - [Enable JWT Authentication On Your Service](/demos/05_enable-jwt)
 - [Enable Rate Limiting Authentication On Your Service](/demos/06_create-rate-limit)
 
-## Resources
+
+# Clean Up
+
+to remove everything just run
+
+```bash
+make k3d-down
+```
+This will destroy the cluster and the install with it.
+
+# Resources #
 
 - [Kong Ingress](https://github.com/Kong/kubernetes-ingress-controller/tree/main/docs)
 - [KongHQ Docs](https://docs.konghq.com/?itm_source=website&itm_medium=nav)

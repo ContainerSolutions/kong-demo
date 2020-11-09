@@ -16,11 +16,11 @@ sleep 1
 
 # Curl the admin api to see if user has been created
 echo "Consumer"
-curl -kSs https://localhost:8444/consumers | jq
+curl -kSsv https://localhost:8444/consumers | jq
 
 # Show Keys Associated with Consumer
 echo "Consumer Key"
-curl -kSs https://localhost:8444/consumers/container-solutions/key-auth | jq
+curl -kSsv https://localhost:8444/consumers/container-solutions/key-auth | jq
 
 # Stop the port forward using its pid
 kill -9 ${PROC_ID}

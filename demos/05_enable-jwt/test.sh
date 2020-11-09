@@ -53,18 +53,21 @@ sleep 3
 
 # Curl the service without auth at /noauth
 echo "No Auth"
-curl -Ss http://localhost:8081/noauth/headers \
+curl -Ssv http://localhost:8081/noauth/headers \
+     -H 'kong-debug: 1' \
      -H 'Host: kong.example.io' | jq
 
 # Curl the service without Auth
 echo "With Auth"
-curl -Ss http://localhost:8081/withjwt/headers \
+curl -Ssv http://localhost:8081/withjwt/headers \
+     -H 'kong-debug: 1' \
      -H 'Host: kong.example.io' | jq
 
 # Curl the service without Auth
 echo "With Auth and Credentials"
-curl -Ss http://localhost:8081/withjwt/headers \
+curl -Ssv http://localhost:8081/withjwt/headers \
      -H 'Host: kong.example.io' \
+     -H 'kong-debug: 1' \
      -H "Authorization: Bearer ${header_payload}.${signature}" | jq
 
 # Stop the port forward using its pid

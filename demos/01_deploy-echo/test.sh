@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -uex
+set -e
 
 if [ "$(kubectl get deployment.apps/echo -o=jsonpath='{.status.availableReplicas},{.status.readyReplicas},{.status.replicas},{.status.updatedReplicas}')" != "1,1,1,1" ]
 then
@@ -15,7 +15,7 @@ PROC_ID=$!
 sleep 3
 
 # Curl the service
-curl -Ss http://localhost:8081/headers | jq
+curl -Ssv http://localhost:8081/headers | jq
 
 # Stop the port forward using its pid
 kill -9 ${PROC_ID}

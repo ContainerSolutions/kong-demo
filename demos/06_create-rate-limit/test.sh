@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -uex
+set -e
 
 if [ "$(kubectl get deployment.apps/echo -o=jsonpath='{.status.availableReplicas},{.status.readyReplicas},{.status.replicas},{.status.updatedReplicas}')" != "1,1,1,1" ]
 then
@@ -16,12 +16,14 @@ sleep 1
 
 
 # Curl the service once with a consumers credentials to fill the rate limit
-curl -Ss http://localhost:8081/withauth/headers \
+curl -Ssv http://localhost:8081/withauth/headers \
+     -H 'X-Kong-Debug: 1' \
      -H 'Host: kong.example.io' \
      -H 'Authorization: rate-limited-user' | jq
 
 # Curl the service a second time with the consumers credentials to be denied
-curl -Ss http://localhost:8081/withauth/headers \
+curl -Ssv --url http://localhost:8081/withauth/headers \
+     -H 'X-Kong-Debug: 1' \
      -H 'Host:  kong.example.io' \
      -H 'Authorization: rate-limited-user' | jq
 
