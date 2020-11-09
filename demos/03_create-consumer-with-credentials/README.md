@@ -13,43 +13,99 @@ make install
 ```bash
 $ make test
 
+./test.sh
+Forwarding from 127.0.0.1:8444 -> 8444
+Forwarding from [::1]:8444 -> 8444
 Consumer
+*   Trying ::1:8444...
+* Connected to localhost (::1) port 8444 (#0)
 Handling connection for 8444
+* ALPN, offering http/1.1
+* WARNING: disabling hostname validation also disables SNI.
+* TLS 1.2 connection using TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+* Server certificate: localhost
+> GET /consumers HTTP/1.1
+> Host: localhost:8444
+> User-Agent: curl/7.71.1
+> Accept: */*
+>
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 200 OK
+< Date: Mon, 09 Nov 2020 10:58:25 GMT
+< Content-Type: application/json; charset=utf-8
+< Connection: keep-alive
+< Access-Control-Allow-Origin: *
+< Server: kong/2.1.4
+< Content-Length: 351
+< X-Kong-Admin-Latency: 2
+<
+{ [351 bytes data]
+* Connection #0 to host localhost left intact
 {
   "next": null,
   "data": [
     {
       "custom_id": null,
-      "created_at": 1604584098,
-      "id": "9f808bbd-2bd7-46a4-bd3f-0b2799670b78",
+      "created_at": 1604918370,
+      "id": "2d39a839-167a-4370-8b2b-315b31b38a5b",
+      "tags": [
+        "managed-by-ingress-controller"
+      ],
+      "username": "echo-rate-limited-consumer"
+    },
+    {
+      "custom_id": null,
+      "created_at": 1604917267,
+      "id": "5fe7ef8c-e35f-4c95-a515-ada305edd09d",
       "tags": [
         "managed-by-ingress-controller"
       ],
       "username": "container-solutions"
-    },
+    }
   ]
 }
-
 Consumer Key
+*   Trying ::1:8444...
+* Connected to localhost (::1) port 8444 (#0)
 Handling connection for 8444
+* ALPN, offering http/1.1
+* WARNING: disabling hostname validation also disables SNI.
+* TLS 1.2 connection using TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+* Server certificate: localhost
+> GET /consumers/container-solutions/key-auth HTTP/1.1
+> Host: localhost:8444
+> User-Agent: curl/7.71.1
+> Accept: */*
+>
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 200 OK
+< Date: Mon, 09 Nov 2020 10:58:25 GMT
+< Content-Type: application/json; charset=utf-8
+< Connection: keep-alive
+< Access-Control-Allow-Origin: *
+< Server: kong/2.1.4
+< Content-Length: 226
+< X-Kong-Admin-Latency: 3
+<
+{ [226 bytes data]
+* Connection #0 to host localhost left intact
 {
   "next": null,
   "data": [
     {
-      "created_at": 1604589794,
-      "id": "0e45e63c-6e7e-4125-bff2-20825656aa3a",
+      "created_at": 1604919500,
+      "id": "a492f833-ae95-48ef-8479-9d148d85932e",
       "tags": [
         "managed-by-ingress-controller"
       ],
       "ttl": null,
       "key": "super-secure-key",
       "consumer": {
-        "id": "9f808bbd-2bd7-46a4-bd3f-0b2799670b78"
+        "id": "5fe7ef8c-e35f-4c95-a515-ada305edd09d"
       }
     }
   ]
 }
-+ kill -9 90267
 ```
 
 ## What am I seeing?

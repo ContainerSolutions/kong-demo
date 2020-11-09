@@ -17,7 +17,29 @@ $ make test
 Forwarding from 127.0.0.1:8081 -> 8000
 Forwarding from [::1]:8081 -> 8000
 No Auth
+*   Trying ::1:8081...
+* Connected to localhost (::1) port 8081 (#0)
+> GET /noauth/headers HTTP/1.1
+> Host: kong.example.io
+> User-Agent: curl/7.71.1
+> Accept: */*
+>
 Handling connection for 8081
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 200 OK
+< Content-Type: application/json
+< Content-Length: 224
+< Connection: keep-alive
+< Server: gunicorn/19.9.0
+< Date: Mon, 09 Nov 2020 10:59:27 GMT
+< Access-Control-Allow-Origin: *
+< Access-Control-Allow-Credentials: true
+< X-Kong-Upstream-Latency: 3
+< X-Kong-Proxy-Latency: 5
+< Via: kong/2.1.4
+<
+{ [224 bytes data]
+* Connection #0 to host localhost left intact
 {
   "headers": {
     "Accept": "*/*",
@@ -29,27 +51,104 @@ Handling connection for 8081
   }
 }
 With Auth
+*   Trying ::1:8081...
+* Connected to localhost (::1) port 8081 (#0)
+> GET /withauth/headers HTTP/1.1
+> Host: kong.example.io
+> User-Agent: curl/7.71.1
+> Accept: */*
+> Kong-Debug: 1
+>
 Handling connection for 8081
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 401 Unauthorized
+< Date: Mon, 09 Nov 2020 10:59:27 GMT
+< Content-Type: application/json; charset=utf-8
+< Connection: keep-alive
+< Kong-Route-Id: f5ce3453-e4ff-44c5-ae68-646140ea429e
+< Kong-Route-Name: default.echo-with-auth.00
+< Kong-Service-Id: 95552e5e-1ce6-4664-b664-0b9d1f4eded4
+< Kong-Service-Name: default.echo.80
+< WWW-Authenticate: Key realm="kong"
+< Content-Length: 45
+< X-Kong-Response-Latency: 1
+< Server: kong/2.1.4
+<
+{ [45 bytes data]
+* Connection #0 to host localhost left intact
 {
   "message": "No API key found in request"
 }
 With Auth and Invalid Credentials
+*   Trying ::1:8081...
+* Connected to localhost (::1) port 8081 (#0)
 Handling connection for 8081
+> GET /withauth/headers HTTP/1.1
+> Host: kong.example.io
+> User-Agent: curl/7.71.1
+> Accept: */*
+> Kong-Debug: 1
+> Authorization: not-so-super-secure-key
+>
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 401 Unauthorized
+< Date: Mon, 09 Nov 2020 10:59:27 GMT
+< Content-Type: application/json; charset=utf-8
+< Connection: keep-alive
+< Kong-Route-Id: f5ce3453-e4ff-44c5-ae68-646140ea429e
+< Kong-Route-Name: default.echo-with-auth.00
+< Kong-Service-Id: 95552e5e-1ce6-4664-b664-0b9d1f4eded4
+< Kong-Service-Name: default.echo.80
+< Content-Length: 52
+< X-Kong-Response-Latency: 2
+< Server: kong/2.1.4
+<
+{ [52 bytes data]
+* Connection #0 to host localhost left intact
 {
   "message": "Invalid authentication credentials"
 }
 With Auth and Credentials
+*   Trying ::1:8081...
+* Connected to localhost (::1) port 8081 (#0)
 Handling connection for 8081
+> GET /withauth/headers HTTP/1.1
+> Host: kong.example.io
+> User-Agent: curl/7.71.1
+> Accept: */*
+> Kong-Debug: 1
+> Authorization: super-secure-key
+>
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 200 OK
+< Content-Type: application/json
+< Content-Length: 477
+< Connection: keep-alive
+< Kong-Route-Id: f5ce3453-e4ff-44c5-ae68-646140ea429e
+< Kong-Route-Name: default.echo-with-auth.00
+< Kong-Service-Id: 95552e5e-1ce6-4664-b664-0b9d1f4eded4
+< Kong-Service-Name: default.echo.80
+< Server: gunicorn/19.9.0
+< Date: Mon, 09 Nov 2020 10:59:27 GMT
+< Access-Control-Allow-Origin: *
+< Access-Control-Allow-Credentials: true
+< X-Kong-Upstream-Latency: 2
+< X-Kong-Proxy-Latency: 17
+< Via: kong/2.1.4
+<
+{ [477 bytes data]
+* Connection #0 to host localhost left intact
 {
   "headers": {
     "Accept": "*/*",
     "Authorization": "super-secure-key",
     "Connection": "keep-alive",
     "Host": "kong.example.io",
+    "Kong-Debug": "1",
     "User-Agent": "curl/7.71.1",
-    "X-Consumer-Id": "a446fc7c-47ab-4b32-a479-6f6b9e91053d",
+    "X-Consumer-Id": "5fe7ef8c-e35f-4c95-a515-ada305edd09d",
     "X-Consumer-Username": "container-solutions",
-    "X-Credential-Identifier": "0330502e-1100-40ce-8db3-6cfebb5f7e9f",
+    "X-Credential-Identifier": "a492f833-ae95-48ef-8479-9d148d85932e",
     "X-Forwarded-Host": "kong.example.io",
     "X-Forwarded-Prefix": "/withauth"
   }

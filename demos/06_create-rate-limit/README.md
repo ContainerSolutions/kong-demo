@@ -11,18 +11,39 @@ make install
 ## Test this step
 
 ```bash
-$ make test
 ./test.sh
-++ kubectl get deployment.apps/echo '-o=jsonpath={.status.availableReplicas},{.status.readyReplicas},{.status.replicas},{.status.updatedReplicas}'
-+ '[' 1,1,1,1 '!=' 1,1,1,1 ']'
-+ PROC_ID=36414
-+ sleep 1
-+ kubectl port-forward -n kong service/kong-proxy 8081:80
 Forwarding from 127.0.0.1:8081 -> 8000
 Forwarding from [::1]:8081 -> 8000
-+ curl -Ss http://localhost:8081/withauth/headers -H 'Host: kong.example.io' -H 'Authorization: rate-limited-user'
-+ jq
+*   Trying ::1:8081...
+* Connected to localhost (::1) port 8081 (#0)
+> GET /withauth/headers HTTP/1.1
+> Host: kong.example.io
+> User-Agent: curl/7.71.1
+> Accept: */*
+> X-Kong-Debug: 1
+> Authorization: rate-limited-user
+>
 Handling connection for 8081
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 200 OK
+< Content-Type: application/json
+< Content-Length: 487
+< Connection: keep-alive
+< Server: gunicorn/19.9.0
+< Date: Mon, 09 Nov 2020 11:00:49 GMT
+< Access-Control-Allow-Origin: *
+< Access-Control-Allow-Credentials: true
+< X-RateLimit-Remaining-Minute: 0
+< X-RateLimit-Limit-Minute: 1
+< RateLimit-Remaining: 0
+< RateLimit-Limit: 1
+< RateLimit-Reset: 11
+< X-Kong-Upstream-Latency: 4
+< X-Kong-Proxy-Latency: 1
+< Via: kong/2.1.4
+<
+{ [487 bytes data]
+* Connection #0 to host localhost left intact
 {
   "headers": {
     "Accept": "*/*",
@@ -30,20 +51,44 @@ Handling connection for 8081
     "Connection": "keep-alive",
     "Host": "kong.example.io",
     "User-Agent": "curl/7.71.1",
-    "X-Consumer-Id": "1796c091-e685-4696-a259-36d4bdace960",
+    "X-Consumer-Id": "2d39a839-167a-4370-8b2b-315b31b38a5b",
     "X-Consumer-Username": "echo-rate-limited-consumer",
-    "X-Credential-Identifier": "13162be5-3740-4889-9ef7-c75963e2d552",
+    "X-Credential-Identifier": "fa8048b7-35a6-4af9-b0f8-d0c574326b25",
     "X-Forwarded-Host": "kong.example.io",
-    "X-Forwarded-Prefix": "/withauth"
+    "X-Forwarded-Prefix": "/withauth",
+    "X-Kong-Debug": "1"
   }
 }
-+ jq
-+ curl -Ss http://localhost:8081/withauth/headers -H 'Host:  kong.example.io' -H 'Authorization: rate-limited-user'
+*   Trying ::1:8081...
+* Connected to localhost (::1) port 8081 (#0)
+> GET /withauth/headers HTTP/1.1
 Handling connection for 8081
+> Host:  kong.example.io
+> User-Agent: curl/7.71.1
+> Accept: */*
+> X-Kong-Debug: 1
+> Authorization: rate-limited-user
+>
+* Mark bundle as not supporting multiuse
+< HTTP/1.1 429 Too Many Requests
+< Date: Mon, 09 Nov 2020 11:00:49 GMT
+< Content-Type: application/json; charset=utf-8
+< Connection: keep-alive
+< Retry-After: 11
+< Content-Length: 41
+< X-RateLimit-Remaining-Minute: 0
+< X-RateLimit-Limit-Minute: 1
+< RateLimit-Remaining: 0
+< RateLimit-Limit: 1
+< RateLimit-Reset: 11
+< X-Kong-Response-Latency: 4
+< Server: kong/2.1.4
+<
+{ [41 bytes data]
+* Connection #0 to host localhost left intact
 {
   "message": "API rate limit exceeded"
 }
-+ kill -9 36414
 ```
 
 ## What am I seeing?
