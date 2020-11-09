@@ -1,6 +1,6 @@
 # Create a Consumer with Credentials
 
-This step will setup a consumer on you Kong instance, you can find out more about consumers [here](https://docs.konghq.com/2.2.x/admin-api/#consumer-object). We also setup an [API Key](https://docs.konghq.com/hub/kong-inc/key-auth/) in this demo the Key is not encrypted, however enterprise users can use [encrypted keys](https://docs.konghq.com/hub/kong-inc/key-auth-enc/)
+This step will setup a consumer on your Kong instance. You can find out more about consumers [here](https://docs.konghq.com/2.2.x/admin-api/#consumer-object). We also setup an [API Key](https://docs.konghq.com/hub/kong-inc/key-auth/) in this demo. The Key is not encrypted, however enterprise users can use [encrypted keys](https://docs.konghq.com/hub/kong-inc/key-auth-enc/)
 
 ## Install
 

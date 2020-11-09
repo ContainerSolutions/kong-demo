@@ -1,6 +1,6 @@
 # Deploying an Ingress to Route to your applications
 
-This step will deploy routing to your application using Kubernetes native configuration
+This step will deploy routing to your application using Kubernetes' native configuration.
 
 ## Install
 
@@ -43,4 +43,4 @@ Handling connection for 8081
 
 ## What am I seeing?
 
-Compared to the previous response this one has a couple of differences, you are now routing through the Kong instance which is adding a couple of headers designated with an `X-`. Congratulations you are using King Ingress!
+Compared to the previous response this one has a couple of differences. You are now routing through the Kong instance which is adding a couple of headers designated with an `X-`. Congratulations you are using Kong Ingress!

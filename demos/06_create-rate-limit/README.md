@@ -1,6 +1,6 @@
 # Enabling Rate Limiting on your Applications
 
-This step enables the [Rate Limiting plugin](https://docs.konghq.com/hub/kong-inc/rate-limiting/) on your application. The rate limiting has a lot of configuration and setup however the basics of the rate limiting is that you can configure the amount of requests and endpoint can receive in a time frame, either using consumers, IP address, headers, credentials etc. For this step a completley new consumer is created in order to test the point. 
+This step enables the [Rate Limiting plugin](https://docs.konghq.com/hub/kong-inc/rate-limiting/) on your application. The rate limiting plugin requires a lot of configuration and setup. However, the basics of the rate limiting functionality is that you can configure the number of requests an endpoint can receive in a given time frame, based on any of: consumers, IP address, headers, credentials etc. For this step a completely new consumer is created in order to test the endpoint.
 
 ## Install
 
@@ -48,6 +48,6 @@ Handling connection for 8081
 
 ## What am I seeing?
 
-In the above requests you can see the first response went through to the service, the user `echo-rate-limited-consumer`, the second request was blocked due to the rate limit (In this case the limit is 1 request per minute**.
+In the above requests you can see the first response went through to the service as the user `echo-rate-limited-consumer`. The second request was blocked due to the rate limit (In this case the limit is 1 request per minute).
 
-*NOTE* You will not be able to get the same results consecutivley if you run the script more than once per a minute due to the rate limiting
+*NOTE* You will not be able to get the same results consecutively if you run the script more than once per a minute due to the rate limiting!
